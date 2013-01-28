@@ -16,7 +16,7 @@
  */
 class MpmClassUndefinedException extends Exception
 {
-	
+
 }
 
 ?>

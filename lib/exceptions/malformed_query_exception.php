@@ -16,7 +16,7 @@
  */
 class MpmMalformedQueryException extends Exception
 {
-	
+
 }
 
 ?>

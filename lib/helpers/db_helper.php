@@ -32,15 +32,15 @@ class MpmDbHelper
      */
     static public function getDbObj()
     {
-		switch (MpmDbHelper::getMethod())
-		{
-		    case MPM_METHOD_PDO:
+	switch (MpmDbHelper::getMethod())
+	{
+	    case MPM_METHOD_PDO:
         	    return MpmDbHelper::getPdoObj();
             case MPM_METHOD_MYSQLI:
                 return MpmDbHelper::getMysqliObj();
             default:
                 throw new Exception('Unknown database connection method defined in database configuration.');
-		}
+	}
     }
 
     /**
@@ -52,14 +52,14 @@ class MpmDbHelper
      */
     static public function getPdoObj()
     {
-		$pdo_settings = array
-		(
-			PDO::ATTR_PERSISTENT => true,
-			PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-			PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true
-		);
+	$pdo_settings = array
+	(
+		PDO::ATTR_PERSISTENT => true,
+		PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+		PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true
+	);
         $db_config = $GLOBALS['db_config'];
-		return new PDO("mysql:host={$db_config->host};port={$db_config->port};dbname={$db_config->name}", $db_config->user, $db_config->pass, $pdo_settings);
+	return new PDO("mysql:host={$db_config->host};port={$db_config->port};dbname={$db_config->name}", $db_config->user, $db_config->pass, $pdo_settings);
     }
 
     /**
@@ -84,12 +84,12 @@ class MpmDbHelper
      */
     static public function getMethod()
     {
-		if (!isset($GLOBALS['db_config']))
-		{
-			throw new Exception('Missing database configuration.');
-		}
-		$db_config = $GLOBALS['db_config'];
-		return $db_config->method;
+	if (!isset($GLOBALS['db_config']))
+	{
+		throw new Exception('Missing database configuration.');
+	}
+	$db_config = $GLOBALS['db_config'];
+	return $db_config->method;
     }
 
     /**
@@ -278,14 +278,14 @@ class MpmDbHelper
 	 */
 	static public function checkForDbTable()
 	{
-		$db_config = $GLOBALS['db_config'];
+	$db_config = $GLOBALS['db_config'];
+	$migrations_table = $db_config->migrations_table;
+	if (isset($db_config->migrations_table))
+	{
 		$migrations_table = $db_config->migrations_table;
-		if (isset($db_config->migrations_table))
-		{
-			$migrations_table = $db_config->migrations_table;
-		}
+	}
 	    $tables = MpmDbHelper::getTables();
-		if (count($tables) == 0 || !in_array($migrations_table, $tables))
+	if (count($tables) == 0 || !in_array($migrations_table, $tables))
 	    {
 	        return false;
 	    }
@@ -308,9 +308,9 @@ class MpmDbHelper
 	    }
    		$sql = "SHOW TABLES";
     	$tables = array();
-		switch (MpmDbHelper::getMethod())
-		{
-		    case MPM_METHOD_PDO:
+	switch (MpmDbHelper::getMethod())
+	{
+	    case MPM_METHOD_PDO:
         	    try
         	    {
             		foreach ($dbObj->query($sql) as $row)
@@ -323,20 +323,20 @@ class MpmDbHelper
         	    }
         	    break;
         	case MPM_METHOD_MYSQLI:
-			    try
-			    {
-				    $result = $dbObj->query($sql);
-				    while ($row = $result->fetch_array())
-				    {
-					    $tables[] = $row[0];
-				    }
-			    }
-			    catch (Exception $e)
-			    {
-			    }
-			    break;
-		}
-		return $tables;
+		    try
+		    {
+		    $result = $dbObj->query($sql);
+		    while ($row = $result->fetch_array())
+		    {
+			    $tables[] = $row[0];
+		    }
+		    }
+		    catch (Exception $e)
+		    {
+		    }
+		    break;
+	}
+	return $tables;
 	}
 
 }

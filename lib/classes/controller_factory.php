@@ -16,7 +16,7 @@
  */
 class MpmControllerFactory
 {
-	
+
 	/**
 	 * Given an array of command line arguments ($argv), determines the controller needed and returns that object.
 	 *
@@ -26,17 +26,17 @@ class MpmControllerFactory
 	 */
 	static public function getInstance($argv)
 	{
-		$script_name = array_shift($argv);
-		$controller_name = array_shift($argv);
-		if ($controller_name == null)
-		{
-			$controller_name = 'help';
-		}
-		$class_name = ucwords(MpmStringHelper::strToCamel('mpm_' . strtolower($controller_name) . '_controller'));
-		$obj = new $class_name($controller_name, $argv);
-		return $obj;
+	$script_name = array_shift($argv);
+	$controller_name = array_shift($argv);
+	if ($controller_name == null)
+	{
+		$controller_name = 'help';
 	}
-	
+	$class_name = ucwords(MpmStringHelper::strToCamel('mpm_' . strtolower($controller_name) . '_controller'));
+	$obj = new $class_name($controller_name, $argv);
+	return $obj;
+	}
+
 }
 
 ?>

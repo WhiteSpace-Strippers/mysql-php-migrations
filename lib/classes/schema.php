@@ -63,7 +63,7 @@ abstract class MpmSchema
         $tables = MpmDbHelper::getTables($this->dbObj);
         $totalTables = count($tables);
         $displayTotal = $totalTables > 1 ? $totalTables - 1 : 0;
-		echo 'found '.$displayTotal.'.';
+	echo 'found '.$displayTotal.'.';
         if ($totalTables > 1)
         {
         	echo '  Disabling foreign key restrictions...';
@@ -72,24 +72,24 @@ abstract class MpmSchema
 	 		$this->dbObj->exec("SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL'");
 	 		echo " done.\n";
             echo '  Removing:', "\n";
-		    foreach ($tables as $table)
-		    {
-		        if ($table != $migrations_table)
-		        {
+	    foreach ($tables as $table)
+	    {
+	        if ($table != $migrations_table)
+	        {
             		echo '        ', $table, "\n";
-		            $this->dbObj->exec('DROP TABLE IF EXISTS `' . $table . '`');
+	            $this->dbObj->exec('DROP TABLE IF EXISTS `' . $table . '`');
                 }
-		    }
+	    }
         	echo '  Re-enabling foreign key restrictions...';
  			$this->dbObj->exec('SET SQL_MODE=@OLD_SQL_MODE');
 	 		$this->dbObj->exec('SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS');
 	 		$this->dbObj->exec('SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS');
         	echo " done.\n";
         }
-		else
-		{
-		    echo '  No tables need to be removed.', "\n";
-		}
+	else
+	{
+	    echo '  No tables need to be removed.', "\n";
+	}
     }
 
     /**
@@ -106,7 +106,7 @@ abstract class MpmSchema
     	$migrations_table = $db_config->migrations_table;
     	echo 'Clearing out existing migration data... ';
         $this->dbObj->exec('TRUNCATE TABLE `' . $migrations_table . '`');
-		echo 'done.', "\n\n", 'Rebuilding migration data... ';
+	echo 'done.', "\n\n", 'Rebuilding migration data... ';
         MpmListHelper::mergeFilesWithDb();
         echo 'done.', "\n";
         if ($this->initialMigrationTimestamp != null)

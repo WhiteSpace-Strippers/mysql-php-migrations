@@ -63,12 +63,12 @@ if (!defined('STDIN'))
  */
 require_once(MPM_PATH . '/lib/exceptions/class_undefined_exception.php');
 
-/** 
+/**
  * Include the MpmStringHelper class.
  */
 require_once(MPM_PATH . '/lib/helpers/string_helper.php');
 
-/** 
+/**
  * Include the MpmAutoloadHelper class.
  */
 require_once(MPM_PATH . '/lib/helpers/autoload_helper.php');

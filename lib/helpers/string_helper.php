@@ -26,28 +26,28 @@ class MpmStringHelper
      */
     static public function getTimestampFromFilename($file)
     {
-		// strip .php
-		$time = str_replace('.php', '', $file);
-		$t = explode('_', $time);
-		// Fix for problem when file doesn't exist and comes in as an empty string, then throws undefined offset errors
-		if (count($t) != 6)
-		{
-		    return null;
-		}
-		$timestamp = $t[0] . '-' . $t[1] . '-' . $t[2] . 'T' . $t[3] . ':' . $t[4] . ':' . $t[5];
-		// validate the date
-		if (false === checkdate($t[1], $t[2], $t[0]))
-		{
-			return null;
-		}
-		// validate timestamp
-		if (false === strtotime($timestamp))
-		{
-			return null;
-		}
-		return $timestamp;
+	// strip .php
+	$time = str_replace('.php', '', $file);
+	$t = explode('_', $time);
+	// Fix for problem when file doesn't exist and comes in as an empty string, then throws undefined offset errors
+	if (count($t) != 6)
+	{
+	    return null;
+	}
+	$timestamp = $t[0] . '-' . $t[1] . '-' . $t[2] . 'T' . $t[3] . ':' . $t[4] . ':' . $t[5];
+	// validate the date
+	if (false === checkdate($t[1], $t[2], $t[0]))
+	{
+		return null;
+	}
+	// validate timestamp
+	if (false === strtotime($timestamp))
+	{
+		return null;
+	}
+	return $timestamp;
     }
-    
+
     /**
      * Returns a filename when given a migration timestamp.
      *
@@ -114,7 +114,7 @@ class MpmStringHelper
         $lower = substr($lower, 0, strlen($lower) - 1);
         return $lower;
     }
-    
+
     /**
      * Adds single quotes and escapes single quotes and backslashes to the given string
      *
@@ -122,11 +122,11 @@ class MpmStringHelper
      *
      * @return string
      */
-    static public function addSingleQuotes($arg) 
-    { 
-      /* single quote and escape single quotes and backslashes */ 
-      return "'" . addcslashes($arg, "'\\") . "'"; 
-    }        
+    static public function addSingleQuotes($arg)
+    {
+      /* single quote and escape single quotes and backslashes */
+      return "'" . addcslashes($arg, "'\\") . "'";
+    }
 
 }
 

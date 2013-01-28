@@ -37,7 +37,7 @@ class ExceptionalMysqli extends mysqli
             throw new MpmDatabaseConnectionException($this->connect_error);
         }
     }
-    
+
     /**
      * Wrapper for the mysqli::query method.
      *
@@ -57,7 +57,7 @@ class ExceptionalMysqli extends mysqli
         }
         return $result;
     }
-    
+
     /**
      * Turns off auto commit.
      *

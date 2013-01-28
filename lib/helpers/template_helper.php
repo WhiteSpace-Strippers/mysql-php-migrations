@@ -29,9 +29,9 @@ class MpmTemplateHelper
 	 */
 	static public function getTemplateAsArrayOfLines($file, $vars = array())
 	{
-		$contents = MpmTemplateHelper::getTemplate($file, $vars);
-		$arr = explode("\n", $contents);
-		return $arr;
+	$contents = MpmTemplateHelper::getTemplate($file, $vars);
+	$arr = explode("\n", $contents);
+	return $arr;
 	}
 
 	/**
@@ -46,30 +46,30 @@ class MpmTemplateHelper
 	 */
 	static public function getTemplate($file, $vars = array())
 	{
-		if (isset($GLOBALS['db_config']))
-		{
-			$db_config = $GLOBALS['db_config'];
-		}
-		else
-		{
-			$db_config = new stdClass();
-			$db_config->db_path = MPM_PATH . '/lib/templates/';
-		}
+	if (isset($GLOBALS['db_config']))
+	{
+		$db_config = $GLOBALS['db_config'];
+	}
+	else
+	{
+		$db_config = new stdClass();
+		$db_config->db_path = MPM_PATH . '/lib/templates/';
+	}
 
-		// has the file been customized?
-		if (file_exists($db_config->db_path . $file))
-		{
-			$contents = file_get_contents($db_config->db_path . $file);
-		}
-		else
-		{
-			$contents = file_get_contents(MPM_PATH . '/lib/templates/' . $file);
-		}
-		foreach ($vars as $key => $val)
-		{
-			$contents = str_replace('@@' . $key . '@@', $val, $contents);
-		}
-		return $contents;
+	// has the file been customized?
+	if (file_exists($db_config->db_path . $file))
+	{
+		$contents = file_get_contents($db_config->db_path . $file);
+	}
+	else
+	{
+		$contents = file_get_contents(MPM_PATH . '/lib/templates/' . $file);
+	}
+	foreach ($vars as $key => $val)
+	{
+		$contents = str_replace('@@' . $key . '@@', $val, $contents);
+	}
+	return $contents;
 	}
 
 }

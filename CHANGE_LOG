@@ -20,7 +20,7 @@
   * fixed: cleaned up change log
   * fixed: modified migrate.php to be compatible with more *nix systems (issue 3)
   * fixed: all files in the db directory were added as migrations even if they weren't (issue 10)
-  
+
 = VERSION 2.0.1 =
   * Added "--force" argument to build command
 
@@ -65,7 +65,7 @@
 
   * new: now stores migration information in database table
   * new: supports migration interleaving (insertion of migrations between migrations which have already been run)
-	
+
 = VERSION 1.0.0 (First Release) =
 
   * new: able to initialize migrations via command line prompts

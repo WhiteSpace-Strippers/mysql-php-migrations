@@ -214,33 +214,33 @@ class MpmListHelper
 	 */
 	static public function getListOfFiles($sort = 'old')
 	{
-		$list = array();
-		if ($sort == 'new')
+	$list = array();
+	if ($sort == 'new')
+	{
+		$sort_order = 1;
+	}
+	else
+	{
+		$sort_order = 0;
+	}
+	$files = scandir(MPM_DB_PATH, $sort_order);
+	foreach ($files as $file)
+	{
+		$full_file = MPM_DB_PATH . $file;
+		if ($file != 'schema.php' && $file != '.' && $file != '..' && !is_dir($full_file) && stripos($full_file, '.php') !== false)
 		{
-			$sort_order = 1;
-		}
-		else
-		{
-			$sort_order = 0;
-		}
-		$files = scandir(MPM_DB_PATH, $sort_order);
-		foreach ($files as $file)
-		{
-			$full_file = MPM_DB_PATH . $file;
-			if ($file != 'schema.php' && $file != '.' && $file != '..' && !is_dir($full_file) && stripos($full_file, '.php') !== false)
-			{
                 $timestamp = MpmStringHelper::getTimestampFromFilename($file);
                 if ($timestamp !== null)
                 {
-					$obj = (object) array();
-					$obj->timestamp = $timestamp;
-					$obj->filename = $file;
-					$obj->full_file = $full_file;
-					$list[] = $obj;
+			$obj = (object) array();
+			$obj->timestamp = $timestamp;
+			$obj->filename = $file;
+			$obj->full_file = $full_file;
+			$list[] = $obj;
                 }
-			}
 		}
-		return $list;
+	}
+	return $list;
 	}
 
 	/**
@@ -252,13 +252,13 @@ class MpmListHelper
 	 */
 	static public function getFiles()
 	{
-		$files = array();
-		$list = MpmListHelper::getListOfFiles();
-		foreach ($list as $obj)
-		{
-			$files[] = $obj->filename;
-		}
-		return $files;
+	$files = array();
+	$list = MpmListHelper::getListOfFiles();
+	foreach ($list as $obj)
+	{
+		$files[] = $obj->filename;
+	}
+	return $files;
 	}
 
 	/**
@@ -276,27 +276,27 @@ class MpmListHelper
 	{
     	$db_config = $GLOBALS['db_config'];
     	$migrations_table = $db_config->migrations_table;
-		if ($direction == 'down')
-		{
-			$sql = "SELECT * FROM `{$migrations_table}` WHERE `timestamp` <= '$latestTimestamp' AND `active` = 1";
-			$countSql = "SELECT COUNT(*) as total FROM `{$migrations_table}` WHERE `timestamp` <= '$latestTimestamp' AND `active` = 1";
-		}
-		else
-		{
-			$sql = "SELECT * FROM `{$migrations_table}` WHERE `timestamp` >= '$latestTimestamp' AND `active` = 1";
-			$countSql = "SELECT COUNT(*) as total FROM `{$migrations_table}` WHERE `timestamp` >= '$latestTimestamp' AND `active` = 1";
-		}
-		$list = array();
-		$countObj = MpmDbHelper::doSingleRowSelect($countSql);
-		if ($countObj->total > 0)
-		{
-		    $results = MpmDbHelper::doMultiRowSelect($sql);
-		    foreach ($results as $obj)
-		    {
-				$list[] = $obj->timestamp;
-		    }
-		}
-		return $list;
+	if ($direction == 'down')
+	{
+		$sql = "SELECT * FROM `{$migrations_table}` WHERE `timestamp` <= '$latestTimestamp' AND `active` = 1";
+		$countSql = "SELECT COUNT(*) as total FROM `{$migrations_table}` WHERE `timestamp` <= '$latestTimestamp' AND `active` = 1";
+	}
+	else
+	{
+		$sql = "SELECT * FROM `{$migrations_table}` WHERE `timestamp` >= '$latestTimestamp' AND `active` = 1";
+		$countSql = "SELECT COUNT(*) as total FROM `{$migrations_table}` WHERE `timestamp` >= '$latestTimestamp' AND `active` = 1";
+	}
+	$list = array();
+	$countObj = MpmDbHelper::doSingleRowSelect($countSql);
+	if ($countObj->total > 0)
+	{
+	    $results = MpmDbHelper::doMultiRowSelect($sql);
+	    foreach ($results as $obj)
+	    {
+		$list[] = $obj->timestamp;
+	    }
+	}
+	return $list;
 	}
 
 }

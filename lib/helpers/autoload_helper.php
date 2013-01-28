@@ -31,12 +31,12 @@ class MpmAutoloadHelper
 	 */
 	static public function load($class_name)
 	{
-		// already loaded, don't need this method
+	// already loaded, don't need this method
         if (class_exists($class_name, false) || interface_exists($class_name, false))
         {
-			return;
-		}
-		
+		return;
+	}
+
         // where do we store the classes?
         $class_path = MPM_PATH . '/lib';
 
@@ -47,13 +47,13 @@ class MpmAutoloadHelper
             $filename = substr($filename, 4, strlen($filename));
         }
         $filename .= '.php';
-        
+
         // is it in the class path?
         if (file_exists($class_path . '/' . $filename))
         {
             require_once($class_path . '/' . $filename);
         }
-		// is it in the config path?
+	// is it in the config path?
         else if (file_exists(MPM_PATH . '/config/' . $filename))
         {
             require_once(MPM_PATH . '/config/' . $filename);
@@ -72,7 +72,7 @@ class MpmAutoloadHelper
                 }
             }
         }
-        
+
         // make sure we've included the class
         if (false === class_exists($class_name, false))
         {
@@ -83,7 +83,7 @@ class MpmAutoloadHelper
         }
         return;
 	}
-	
+
 }
 
 ?>
